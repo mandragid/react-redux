@@ -1,22 +1,31 @@
 import "./App.css";
-import { useState } from "react";
-import Result from "./components/Result";
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
-  const [num, setNum] = useState(0);
+  const { total } = useSelector((rootReducer) => rootReducer.counter);
+  const dispatch = useDispatch();
+
   const handleAdd = () => {
-    setNum(num + 1);
+    let newTotal = total + 1;
+    dispatch({
+      type: "TAMBAH",
+      payload: newTotal,
+    });
   };
 
   const handleSub = () => {
-    setNum(num - 1);
+    let newTotal = total - 1;
+    dispatch({
+      type: "KURANG",
+      payload: newTotal,
+    });
   };
+  console.log();
   return (
     <div className="Counter">
       <button onClick={handleAdd}>+</button>
       <button onClick={handleSub}>-</button>
-      <h1>{num}</h1>
-      <Result />
+      <h1>{total}</h1>
     </div>
   );
 }

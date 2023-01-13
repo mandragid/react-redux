@@ -1,14 +1,7 @@
 import React from "react";
 import { createStore } from "redux";
+import rootReducer from "./reducers";
 
-const counterState = {
-  total: 20,
-};
-
-const counterReducer = (result = counterState) => {
-  return result;
-};
-
-const store = createStore(counterReducer);
+const store = createStore(rootReducer);
 
 export default store;
