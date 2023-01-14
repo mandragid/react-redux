@@ -1,31 +1,33 @@
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
+import { handleAdd, handleSub } from "./redux/actions/counterAction";
+import { handleLogin } from "./redux/actions/authAction";
 
 function App() {
-  const { total } = useSelector((rootReducer) => rootReducer.counter);
+  const { counter, login } = useSelector((rootReducer) => rootReducer);
   const dispatch = useDispatch();
 
-  const handleAdd = () => {
-    let newTotal = total + 1;
-    dispatch({
-      type: "TAMBAH",
-      payload: newTotal,
-    });
+  console.log(login);
+
+  const add = () => {
+    dispatch(handleAdd(counter));
   };
 
-  const handleSub = () => {
-    let newTotal = total - 1;
-    dispatch({
-      type: "KURANG",
-      payload: newTotal,
-    });
+  const sub = () => {
+    dispatch(handleSub(counter));
   };
-  console.log();
+  const handleLoginButton = () => {
+    dispatch(handleLogin(login));
+  };
   return (
     <div className="Counter">
-      <button onClick={handleAdd}>+</button>
-      <button onClick={handleSub}>-</button>
-      <h1>{total}</h1>
+      <button onClick={add}>+</button>
+      <button onClick={sub}>-</button>
+      <h1>{counter.total}</h1>
+      {login.isLogin ? <h1>anda sudah login</h1> : <h1>silahkan login</h1>}
+      <button onClick={handleLoginButton}>
+        {login.isLogin ? "logout" : "login"}{" "}
+      </button>
     </div>
   );
 }
